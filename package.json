@@ -1,0 +1,11 @@
+{
+  "name": "gitcafe-agent-kit",
+  "private": true,
+  "type": "module",
+  "description": "Public-surface-only fixes for gaps in the GitCafe agent experience",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "slice": "node packages/openapi-slicer/src/cli.ts",
+    "test": "node --test packages/*/test/*.test.ts"
+  }
+}

@@ -1,0 +1,21 @@
+name: gitcafe-cache
+description: Save and restore files to S3 or R2 (actions/cache replacement for runners without a cache service)
+inputs:
+  path: { description: 'Files or globs, one per line', required: true }
+  key: { description: 'Exact cache key', required: true }
+  restore-keys: { description: 'Fallback key prefixes, one per line, newest match wins', required: false }
+  bucket: { description: 'S3/R2 bucket', required: true }
+  endpoint: { description: 'S3 endpoint, e.g. https://<account>.r2.cloudflarestorage.com', required: false }
+  region: { description: 'Region ("auto" for R2)', required: false, default: auto }
+  access-key-id: { description: 'Access key id', required: true }
+  secret-access-key: { description: 'Secret access key', required: true }
+  prefix: { description: 'Object key prefix', required: false, default: gitcafe-cache }
+  fail-on-error: { description: 'Fail the step when the cache backend errors', required: false, default: 'false' }
+outputs:
+  cache-hit: { description: 'true only on an exact key match' }
+  cache-matched-key: { description: 'Key that was restored, if any' }
+runs:
+  using: node24
+  main: main.ts
+  post: post.ts
+  post-if: success()
